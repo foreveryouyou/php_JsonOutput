@@ -135,7 +135,11 @@ class JsonOutput
         if (defined('JSON_UNESCAPED_UNICODE') && $this->unEscapedUnicode) {
             $options = $options | JSON_UNESCAPED_UNICODE;
         }
-        echo json_encode($data, $options);
+	    if ($options != 0) {
+		    echo json_encode($data, $options);
+	    } else {
+		    echo json_encode($data);
+	    }
         $this->exit && exit();
     }
 
