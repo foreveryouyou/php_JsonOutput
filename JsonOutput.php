@@ -43,7 +43,11 @@ class JsonOutput
                 $this->retKeys[$key] = $keys[$key];
             }
         }
-        header('Content-type: application/json');
+	    if ($this->isIE()) {
+		    header('Content-type: text/html;charset=UTF-8');
+	    } else {
+		    header('Content-type: application/json;charset=UTF-8');
+	    }
     }
 
     /**
@@ -142,5 +146,14 @@ class JsonOutput
 	    }
         $this->exit && exit();
     }
+
+	/**
+	 * @return bool|int
+	 */
+	private function isIE()
+	{
+		$isIE = strpos($_SERVER['HTTP_USER_AGENT'], "Triden");
+		return $isIE;
+	}
 
 }
